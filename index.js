@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const employeeRoute = require("./routes/employeeRoute.js")
-const managerRoute = require("./routes/managerRoute.js");
+const managerRoute = require("./routes/managerAuthRoute.js");
 
 const app = express();
 
