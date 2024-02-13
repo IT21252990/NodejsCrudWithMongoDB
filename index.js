@@ -1,3 +1,4 @@
+//imports
 const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 
 dotenv.config();
 
+//connect to the database
 const PORT = process.env.PORT || 5000 ;
 const MONGOURL = process.env.MONGO_URL;
 

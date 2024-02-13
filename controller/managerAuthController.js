@@ -1,7 +1,9 @@
+//imports
 const Manager = require("../model/managerModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+//controller for manager registration
 const signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
     if (err) {
@@ -9,7 +11,6 @@ const signup = (req, res, next) => {
         error: err,
       });
     }
-
     let manager = new Manager({
       name: req.body.name,
       email: req.body.email,
@@ -31,39 +32,45 @@ const signup = (req, res, next) => {
   });
 };
 
+//controller for manager login
 const login = (req, res, next) => {
-  var username = req.body.username
-  var password = req.body.password
+  var username = req.body.username;
+  var password = req.body.password;
 
-  Manager.findOne({$or: [{ email: username }, { phone: username }] })
-  .then(manager => {
+  Manager.findOne({ $or: [{ email: username }, { phone: username }] }).then(
+    (manager) => {
       if (manager) {
-        bcrypt.compare(password, manager.password, function(err, result) {
+        bcrypt.compare(password, manager.password, function (err, result) {
           if (err) {
             res.json({
-              error: err
-            })
+              error: err,
+            });
           }
           if (result) {
-            let token = jwt.sign({ name: manager.name }, "verySecretValue", {expiresIn: "1h",})
+            let token = jwt.sign({ name: manager.name }, "verySecretValue", {
+              expiresIn: "1h",
+            });
             res.json({
               message: "Login successful !",
-              token
-            })
+              token,
+            });
           } else {
             res.json({
-              message: "Password incorrect"
-            })
+              message: "Password incorrect",
+            });
           }
-        })
+        });
       } else {
         res.json({
-          message: "User not found"
-        })
+          message: "User not found",
+        });
       }
-    })
-}
+    }
+  );
+};
 
+//export controllers
 module.exports = {
-  signup,login
+  signup,
+  login,
 };

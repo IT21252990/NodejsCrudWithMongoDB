@@ -1,5 +1,7 @@
+//imports
 const Employee = require("../model/employeeModel");
 
+// controller for add a new employee for the database
 const create = async(req, res)=>{
     try {
         const employeeData = new Employee( req.body);
@@ -15,6 +17,7 @@ const create = async(req, res)=>{
     }
 }
 
+// controller for get all employees form the database
 const fetch = async (req, res)=>{
     try {
         const employees = await Employee.find();
@@ -27,6 +30,7 @@ const fetch = async (req, res)=>{
     }
 }
 
+// controller for update an employee in the database
 const update = async (req, res)=>{
     try {
         const id = req.params.id;
@@ -41,6 +45,7 @@ const update = async (req, res)=>{
     }
 }
 
+// controller for delete an employee form the database
 const deleteEmployee = async (req, res)=>{
     try {
         const id = req.params.id;
@@ -55,6 +60,7 @@ const deleteEmployee = async (req, res)=>{
     }
 }   
 
+//export operations
 module.exports = {
     create,
     fetch,
