@@ -2,7 +2,9 @@ const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const route = require("./routes/employeeRoute.js")
+
+const employeeRoute = require("./routes/employeeRoute.js")
+const managerRoute = require("./routes/managerRoute.js");
 
 const app = express();
 
@@ -20,4 +22,5 @@ mongoose.connect(MONGOURL).then(()=>{
     })
 }).catch(err=> console.log(err));
 
-app.use("/api/employee", route);
+app.use("/api/employee", employeeRoute);
+app.use("/api", managerRoute);
