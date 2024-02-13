@@ -1,8 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-import route from "./routes/employeeRoute";
+const dotenv = require("dotenv");
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const route = require("./routes/employeeRoute.js")
 
 const app = express();
 

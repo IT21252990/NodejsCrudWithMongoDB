@@ -1,7 +1,6 @@
-import Employee from "../model/employeeModel";
+const Employee = require("../model/employeeModel");
 
-// For add new Employee into database 
-export const create = async(req, res)=>{
+const create = async(req, res)=>{
     try {
         const employeeData = new Employee( req.body);
         const {email} = employeeData;
@@ -16,8 +15,7 @@ export const create = async(req, res)=>{
     }
 }
 
-// For getting all Employees from database 
-export const fetch = async (req, res)=>{
+const fetch = async (req, res)=>{
     try {
         const employees = await Employee.find();
         if(employees.length === 0 ){
@@ -29,8 +27,7 @@ export const fetch = async (req, res)=>{
     }
 }
 
-// For updating an Employee data 
-export const update = async (req, res)=>{
+const update = async (req, res)=>{
     try {
         const id = req.params.id;
         const employeeExist = await Employee.findOne({_id:id})
@@ -44,8 +41,7 @@ export const update = async (req, res)=>{
     }
 }
 
-// For deleting an Employee from database 
-export const deleteEmployee = async (req, res)=>{
+const deleteEmployee = async (req, res)=>{
     try {
         const id = req.params.id;
         const employeeExist = await Employee.findOne({_id:id})
@@ -57,4 +53,11 @@ export const deleteEmployee = async (req, res)=>{
     } catch (error) {
         res.status(500).json({error : " Internal Server Error. "})
     }
+}   
+
+module.exports = {
+    create,
+    fetch,
+    update,
+    deleteEmployee
 }

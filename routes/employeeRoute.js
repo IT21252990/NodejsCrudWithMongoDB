@@ -1,5 +1,5 @@
-import express from 'express';
-import { create , fetch , update , deleteEmployee } from '../controller/employeeController';
+const express = require('express');
+const { create , fetch , update , deleteEmployee } = require('../controller/employeeController');
 
 const route = express.Router();
 
@@ -8,4 +8,4 @@ route.get("/getallemployees" , fetch);
 route.put("/update/:id", update);
 route.delete("delete/:id", deleteEmployee);
 
-export default route;
+module.exports = route;
