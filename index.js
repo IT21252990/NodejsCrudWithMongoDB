@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import route from "./routes/employeeRoute";
 
 const app = express();
 
@@ -18,3 +19,5 @@ mongoose.connect(MONGOURL).then(()=>{
         console.log(`Server running on port ${PORT}`);
     })
 }).catch(err=> console.log(err));
+
+app.use("/api/employee", route);
