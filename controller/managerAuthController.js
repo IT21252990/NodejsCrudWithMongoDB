@@ -31,40 +31,41 @@ const signup = (req, res, next) => {
   });
 };
 
-const login = (req , res , next) => {
-    var username = req.params.username
-    var password = req.params.password
+const login = (req, res, next) => {
+  var username = req.params.username;
+  var password = req.params.password;
 
-    Manager.findOne({$or : [{email: username} , {phone:username}]})
-    .then(manager => {
-        if(manager){
-            bcrypt.compare(password, manager.password , function(err , password){
-                if(err){
-                    res.json({
-                        error:err
-                    })
-                }
-                if(result){
-                    let token = jwt.sign({name: manager.name}, 'verySecretValue' , {expiresIn: '1h'})
-                    res.json({
-                        message:"Login successful !",
-                        token
-                    })
-                }
-                else{
-                    res.json({
-                        message:"Password incorrect"
-                    })
-                }
-            })
-        }
-        else{
+  Manager.findOne({ $or: [{ email: username }, { phone: username }] }).then(
+    (manager) => {
+      if (manager) {
+        bcrypt.compare(password, manager.password, function (err, password) {
+          if (err) {
             res.json({
-                message:"User not found"
-            })
-        }
-    })
-}
+              error: err,
+            });
+          }
+          if (result) {
+            let token = jwt.sign({ name: manager.name }, "verySecretValue", {
+              expiresIn: "1h",
+            });
+            res.json({
+              message: "Login successful !",
+              token,
+            });
+          } else {
+            res.json({
+              message: "Password incorrect",
+            });
+          }
+        });
+      } else {
+        res.json({
+          message: "User not found",
+        });
+      }
+    }
+  );
+};
 
 module.exports = {
   signup,
